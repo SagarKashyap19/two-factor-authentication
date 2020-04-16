@@ -1,1 +1,49 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/scss/bootstrap";
+
+$main_accent: #F9A61A;
+$orange_light: #FEC503;
+$main_light: #FFF8ED;
+$main_hover: #F9E0B6;
+$secondary: #015E6A;
+$light_grey: #EAEAEA;
+$medium_grey: #979797;
+$dark_grey: #757575;
+$background_color: #FAFAFA;
+$darker_grey: #5A5A5A;
+$lighter_grey: #f8f8f8;
+$third_level_grey: #F2F2F2;
+
+
+$main_ok: #B3D591;
+$secondary_ok: #EEF7E5;
+
+$main_notok: #E76E7D;
+$secondary_notok: #FFEDF0;
+
+$main_stopped: #FFC80C;
+$main_dark_stopped: #FFE9A3;
+$secondary_stopped: #FFFAEC;
+
+$main_running: #A0DAED;
+$secondary_running: #F0FBFF;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
+
+html {
+  font-size: 62.5%;
+
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
