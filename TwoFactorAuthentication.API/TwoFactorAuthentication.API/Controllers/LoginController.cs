@@ -4,10 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using TwoFactorAuthentication.API.Models;
 
 namespace TwoFactorAuthentication.API.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LoginController : ApiController
     {
         UserContext UserContext;
@@ -22,6 +24,7 @@ namespace TwoFactorAuthentication.API.Controllers
             UserContext.SaveChanges();
         }
 
+        [HttpPost]
         public IHttpActionResult GetUser(User user)
         {
             //Populate(user.Email,user.Password);
@@ -79,7 +82,7 @@ namespace TwoFactorAuthentication.API.Controllers
             User getuser = UserContext.users.Where(x => x.Email == user.Email).FirstOrDefault();
             Random rnd = new Random();
             int otp = rnd.Next(1000, 9999);
-            //SMTP
+            //SMTP google mail
             getuser.OTP = otp;
             if (getuser != null)
             {
