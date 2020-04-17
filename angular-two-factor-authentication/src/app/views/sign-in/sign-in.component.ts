@@ -19,26 +19,13 @@ export class SignInComponent implements OnInit {
   constructor(private authService: AuthService, private fb: FormBuilder, public router: Router) {}
 
   ngOnInit(): void {
-    this.frmSignIn = this.createSignupForm();
+    this.frmSignIn = this.fb.group({
+    Email: [''],
+    Password: ['']
+    })
     this.frmOtp = this.fb.group({
       otp: [''],
     })
-  }
-
-  createSignupForm(): FormGroup {
-    return this.fb.group({
-      Email: [
-        null,
-        Validators.compose([Validators.email, Validators.required])
-      ],
-      Password: [
-        null,
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(8)
-        ])
-      ]
-    });
   }
 
   getOtp() {
