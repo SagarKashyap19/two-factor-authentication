@@ -20,7 +20,27 @@
           type="password"
           class="input-field"
         />
-        <label
+        <label class="col">
+            {{
+              frmSignup.controls["password"].hasError("required") ||
+              frmSignup.controls["password"].hasError("minlength")
+                ? "Must be at least 8 characters!"
+                : frmSignup.controls["password"].hasError("required") ||
+                  frmSignup.controls["password"].hasError("hasNumber")
+                ? "Must contain at least 1 number!"
+                : frmSignup.controls["password"].hasError("required") ||
+                  frmSignup.controls["password"].hasError("hasCapitalCase")
+                ? "Must contain at least 1 in Capital Case!"
+                : frmSignup.controls["password"].hasError("required") ||
+                  frmSignup.controls["password"].hasError("hasSmallCase")
+                ? "Must contain at least 1 Letter in Small Case!"
+                : frmSignup.controls["password"].hasError("required") ||
+                  frmSignup.controls["password"].hasError("hasSpecialCharacters")
+                ? "Must contain at least 1 Special Character!"
+                : ""
+            }}
+          </label>
+        <!-- <label
           class="col"
           [ngClass]="
             frmSignup.controls['password'].hasError('required') ||
@@ -74,7 +94,7 @@
           "
         >
           Must contain at least 1 Special Character!
-        </label>
+        </label> -->
       </div>
       <div class="form-group form-checkbox">
         <input type="checkbox" class="default-checkbox" />
