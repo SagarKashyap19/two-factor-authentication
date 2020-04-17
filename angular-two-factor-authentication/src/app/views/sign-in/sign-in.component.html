@@ -1,12 +1,12 @@
 <div class="login-container">
-  <form [formGroup]="frmSignup" (submit)="submit()" class="login-form">
+  <form [formGroup]="frmSignIn" (submit)="submit()" class="login-form" *ngIf="!isOtp">
     <img src="../../../assets/logo.svg" class="logo-login" />
     <div class="form-group-cont">
       <div class="form-group">
         <label for="" class="input-label">USERNAME</label>
         <input
           id="email"
-          formControlName="email"
+          formControlName="Email"
           type="text"
           class="input-field"
           autocomplete="off"
@@ -16,30 +16,30 @@
         <label for="password" class="input-label">Password:</label>
         <input
           id="password"
-          formControlName="password"
+          formControlName="Password"
           type="password"
           class="input-field"
         />
         <label class="col">
-            {{
-              frmSignup.controls["password"].hasError("required") ||
-              frmSignup.controls["password"].hasError("minlength")
-                ? "Must be at least 8 characters!"
-                : frmSignup.controls["password"].hasError("required") ||
-                  frmSignup.controls["password"].hasError("hasNumber")
-                ? "Must contain at least 1 number!"
-                : frmSignup.controls["password"].hasError("required") ||
-                  frmSignup.controls["password"].hasError("hasCapitalCase")
-                ? "Must contain at least 1 in Capital Case!"
-                : frmSignup.controls["password"].hasError("required") ||
-                  frmSignup.controls["password"].hasError("hasSmallCase")
-                ? "Must contain at least 1 Letter in Small Case!"
-                : frmSignup.controls["password"].hasError("required") ||
-                  frmSignup.controls["password"].hasError("hasSpecialCharacters")
-                ? "Must contain at least 1 Special Character!"
-                : ""
-            }}
-          </label>
+          {{
+            frmSignIn.controls["Password"].hasError("required") ||
+            frmSignIn.controls["Password"].hasError("minlength")
+              ? "Must be at least 8 characters!"
+              : frmSignIn.controls["Password"].hasError("required") ||
+                frmSignIn.controls["Password"].hasError("hasNumber")
+              ? "Must contain at least 1 number!"
+              : frmSignIn.controls["Password"].hasError("required") ||
+                frmSignIn.controls["Password"].hasError("hasCapitalCase")
+              ? "Must contain at least 1 in Capital Case!"
+              : frmSignIn.controls["Password"].hasError("required") ||
+                frmSignIn.controls["Password"].hasError("hasSmallCase")
+              ? "Must contain at least 1 Letter in Small Case!"
+              : frmSignIn.controls["Password"].hasError("required") ||
+                frmSignIn.controls["Password"].hasError("hasSpecialCharacters")
+              ? "Must contain at least 1 Special Character!"
+              : ""
+          }}
+        </label>
         <!-- <label
           class="col"
           [ngClass]="
@@ -102,8 +102,37 @@
       </div>
     </div>
     <div class="btn-contianer">
-      <button type="submit" class="btn btn-primary" [disabled]="frmSignup.invalid">
-        LOG IN
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="frmSignIn.invalid"
+      >
+        Get Otp
+      </button>
+    </div>
+  </form>
+
+  <form [formGroup]="frmOtp" (submit)="submit()" class="login-form" *ngIf="isOtp">
+    <img src="../../../assets/logo.svg" class="logo-login" />
+    <div class="form-group-cont">
+      <div class="form-group">
+        <label for="" class="input-label">OTP</label>
+        <input
+          id="otp"
+          formControlName="otp"
+          type="text"
+          class="input-field"
+          autocomplete="off"
+        />
+      </div>
+    </div>
+    <div class="btn-contianer">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="frmSignIn.invalid"
+      >
+        Verify
       </button>
     </div>
   </form>
