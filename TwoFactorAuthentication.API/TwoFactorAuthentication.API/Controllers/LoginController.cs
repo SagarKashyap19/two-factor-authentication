@@ -97,7 +97,7 @@ namespace TwoFactorAuthentication.API.Controllers
             User user =
               UserContext.users.Where(x =>  x.Email == email).Where(x=>x.Password == password).FirstOrDefault();
 
-            if (user.Email == email && user.Password == password)
+            if (user != null)
             {
                  return true;
             }
