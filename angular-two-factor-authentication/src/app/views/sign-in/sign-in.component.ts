@@ -32,25 +32,6 @@ export class SignInComponent implements OnInit {
         null,
         Validators.compose([
           Validators.required,
-          // check whether the entered password has a number
-          CustomValidators.patternValidator(/\d/, {
-            hasNumber: true
-          }),
-          // check whether the entered password has upper case letter
-          CustomValidators.patternValidator(/[A-Z]/, {
-            hasCapitalCase: true
-          }),
-          // check whether the entered password has a lower case letter
-          CustomValidators.patternValidator(/[a-z]/, {
-            hasSmallCase: true
-          }),
-          // check whether the entered password has a special character
-          CustomValidators.patternValidator(
-            /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
-            {
-              hasSpecialCharacters: true
-            }
-          ),
           Validators.minLength(8)
         ])
       ]
@@ -58,9 +39,8 @@ export class SignInComponent implements OnInit {
   }
 
   submit() {
-    this.isOtp = true;
-    // this.authService.signIn(this.frmSignIn.value).subscribe(() => {
-    //   this.isOtp = true
-    // })
+    this.authService.signIn(this.frmSignIn.value).subscribe(() => {
+      this.isOtp = true
+    })
   }
 }

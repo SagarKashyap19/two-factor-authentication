@@ -15,8 +15,9 @@ export class AuthService {
   endpoint = "http://localhost:58014/api/Login/GetUser";
 
   signIn(user: User) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http
-      .post<any>(`${this.endpoint}`, user)
+      .post<any>(`${this.endpoint}`, user, {headers: headers})
       .pipe(
         map(data => data),
         catchError(e => throwError(e))

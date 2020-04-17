@@ -1,0 +1,140 @@
+<div class="login-container">
+    <form [formGroup]="frmSignIn" (submit)="submit()" class="login-form" *ngIf="!isOtp">
+      <img src="../../../assets/logo.svg" class="logo-login" />
+      <div class="form-group-cont">
+        <div class="form-group">
+          <label for="" class="input-label">USERNAME</label>
+          <input
+            id="email"
+            formControlName="Email"
+            type="text"
+            class="input-field"
+            autocomplete="off"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password" class="input-label">Password:</label>
+          <input
+            id="password"
+            formControlName="Password"
+            type="password"
+            class="input-field"
+          />
+          <!-- <label class="col">
+            {{
+              frmSignIn.controls["Password"].hasError("required") ||
+              frmSignIn.controls["Password"].hasError("minlength")
+                ? "Must be at least 8 characters!"
+                : frmSignIn.controls["Password"].hasError("required") ||
+                  frmSignIn.controls["Password"].hasError("hasNumber")
+                ? "Must contain at least 1 number!"
+                : frmSignIn.controls["Password"].hasError("required") ||
+                  frmSignIn.controls["Password"].hasError("hasCapitalCase")
+                ? "Must contain at least 1 in Capital Case!"
+                : frmSignIn.controls["Password"].hasError("required") ||
+                  frmSignIn.controls["Password"].hasError("hasSmallCase")
+                ? "Must contain at least 1 Letter in Small Case!"
+                : frmSignIn.controls["Password"].hasError("required") ||
+                  frmSignIn.controls["Password"].hasError("hasSpecialCharacters")
+                ? "Must contain at least 1 Special Character!"
+                : ""
+            }}
+          </label> -->
+          <!-- <label
+            class="col"
+            [ngClass]="
+              frmSignup.controls['password'].hasError('required') ||
+              frmSignup.controls['password'].hasError('minlength')
+                ? 'text-danger'
+                : 'text-success'
+            "
+          >
+            Must be at least 8 characters!
+          </label>
+          <label
+            class="col"
+            [ngClass]="
+              frmSignup.controls['password'].hasError('required') ||
+              frmSignup.controls['password'].hasError('hasNumber')
+                ? 'text-danger'
+                : 'text-success'
+            "
+          >
+            Must contain at least 1 number!
+          </label>
+          <label
+            class="col"
+            [ngClass]="
+              frmSignup.controls['password'].hasError('required') ||
+              frmSignup.controls['password'].hasError('hasCapitalCase')
+                ? 'text-danger'
+                : 'text-success'
+            "
+          >
+            Must contain at least 1 in Capital Case!
+          </label>
+          <label
+            class="col"
+            [ngClass]="
+              frmSignup.controls['password'].hasError('required') ||
+              frmSignup.controls['password'].hasError('hasSmallCase')
+                ? 'text-danger'
+                : 'text-success'
+            "
+          >
+            Must contain at least 1 Letter in Small Case!
+          </label>
+          <label
+            class="col"
+            [ngClass]="
+              frmSignup.controls['password'].hasError('required') ||
+              frmSignup.controls['password'].hasError('hasSpecialCharacters')
+                ? 'text-danger'
+                : 'text-success'
+            "
+          >
+            Must contain at least 1 Special Character!
+          </label> -->
+        </div>
+        <div class="form-group form-checkbox">
+          <input type="checkbox" class="default-checkbox" />
+          <label class="remember-me">Remember Me</label>
+        </div>
+      </div>
+      <div class="btn-contianer">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="frmSignIn.invalid"
+        >
+          Get Otp
+        </button>
+      </div>
+    </form>
+  
+    <form [formGroup]="frmOtp" (submit)="submit()" class="login-form" *ngIf="isOtp">
+      <img src="../../../assets/logo.svg" class="logo-login" />
+      <div class="form-group-cont">
+        <div class="form-group">
+          <label for="" class="input-label">OTP</label>
+          <input
+            id="otp"
+            formControlName="otp"
+            type="text"
+            class="input-field"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+      <div class="btn-contianer">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="frmSignIn.invalid"
+        >
+          Verify
+        </button>
+      </div>
+    </form>
+  </div>
+  

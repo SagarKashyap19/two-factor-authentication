@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { SignInComponent } from './views/sign-in/sign-in.component';
 import { UserProfileComponent } from './views/user-profile/user-profile.component';
 import { OtpComponent } from './views/otp/otp.component';
+import { SignupComponent } from './views/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { OtpComponent } from './views/otp/otp.component';
     SignInComponent,
     UserProfileComponent,
     OtpComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
