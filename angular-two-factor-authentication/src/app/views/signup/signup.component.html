@@ -1,10 +1,5 @@
 <div class="login-container">
-  <form
-    [formGroup]="frmSignup"
-    (submit)="submit()"
-    class="login-form"
-    *ngIf="!isOtp"
-  >
+  <form [formGroup]="frmSignup" (submit)="submit()" class="login-form">
     <img src="../../../assets/logo.svg" class="logo-login" />
     <div class="form-group-cont">
       <div class="form-group">
@@ -24,13 +19,13 @@
           formControlName="Password"
           type="password"
           class="input-field"
+          autocomplete="off"
         />
         <label
           class="validation-error"
-          *ngIf="frmSignup.controls['Password'].value.length !== 0"
+          *ngIf="frmSignup.controls['Password'].value !== null"
         >
           <label
-            class="col"
             [ngClass]="
               frmSignup.controls['Password'].hasError('required') ||
               frmSignup.controls['Password'].hasError('minlength')
@@ -38,16 +33,9 @@
                 : 'text-success'
             "
           >
-            <i class="material-icons">{{
-              frmSignup.controls["Password"].hasError("required") ||
-              frmSignup.controls["Password"].hasError("minlength")
-                ? "cancel"
-                : "check_circle"
-            }}</i>
             Must be at least 8 characters!
           </label>
           <label
-            class="col"
             [ngClass]="
               frmSignup.controls['Password'].hasError('required') ||
               frmSignup.controls['Password'].hasError('hasNumber')
@@ -58,7 +46,6 @@
             Must contain at least 1 number!
           </label>
           <label
-            class="col"
             [ngClass]="
               frmSignup.controls['Password'].hasError('required') ||
               frmSignup.controls['Password'].hasError('hasCapitalCase')
@@ -69,7 +56,6 @@
             Must contain at least 1 in Capital Case!
           </label>
           <label
-            class="col"
             [ngClass]="
               frmSignup.controls['Password'].hasError('required') ||
               frmSignup.controls['Password'].hasError('hasSmallCase')
@@ -80,7 +66,6 @@
             Must contain at least 1 Letter in Small Case!
           </label>
           <label
-            class="col"
             [ngClass]="
               frmSignup.controls['Password'].hasError('required') ||
               frmSignup.controls['Password'].hasError('hasSpecialCharacters')
@@ -93,13 +78,31 @@
         </label>
       </div>
       <div class="form-group">
-        <label for="Password" class="input-label">Confirm Password</label>
+        <label for="ConfirmPassword" class="input-label"
+          >Confirm Password</label
+        >
         <input
-          id="password"
+          id="ConfirmPassword"
           formControlName="ConfirmPassword"
           type="password"
           class="input-field"
         />
+        <label *ngIf="frmSignup.controls['ConfirmPassword'].value !== null || frmSignup.controls['ConfirmPassword'].value.length !== 0">
+          <label
+            class="text-danger"
+            *ngIf="frmSignup.controls['ConfirmPassword'].hasError('required')"
+          >
+            Password is Required!
+          </label>
+          <label
+            class="text-danger"
+            *ngIf="
+              frmSignup.controls['ConfirmPassword'].hasError('NoPassswordMatch')
+            "
+          >
+            Password do not match
+          </label>
+        </label>
       </div>
     </div>
     <div class="btn-contianer">
