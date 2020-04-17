@@ -1,0 +1,117 @@
+@import "../../../styles.scss";
+
+.login-container {
+  background-image: url("../../../assets/background.png");
+  text-align: center;
+  flex-direction: column;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .login-form {
+    width: 33rem;
+
+    .logo-login {
+      width: 100%;
+      height: 7.48rem;
+      object-fit: contain;
+    }
+
+    .form-group-cont {
+      margin: 2rem 0 1rem 0;
+      width: 100%;
+
+      .form-group {
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        margin-bottom: 2rem;
+        .input-label {
+          font-size: 1.6rem;
+          font-weight: bold;
+          color: $dark_grey;
+          margin-bottom: 1rem;
+        }
+
+        .input-field {
+          height: 5rem;
+          border-radius: .5rem;
+          border: solid .17rem $lighter_grey;
+          font-size: 1.8rem;
+          padding-left: 0.5rem;
+        }
+
+        .default-checkbox {
+          width: 20px;
+          height: 20.3px;
+          border-radius: 3px;
+          border: solid 1px #b7bcc0;
+        }
+
+        .remember-me {
+          font-size: 1.6rem;
+          letter-spacing: 0.133rem;
+          color: $medium_grey;
+          margin-left: 0.5rem;
+        }
+      }
+
+      .form-checkbox {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    .btn-contianer {
+      margin-top: 2rem;
+      .btn {
+        background-color: $main_accent;
+        border-color: $main_accent;
+        border-radius: 70px;
+        width: 24.2rem;
+        height: 4.95rem;
+        font-size: 1.8rem;
+        text-transform: uppercase;
+        &:hover,
+        &:active {
+          background-color: $orange_light !important;
+          border-color: $orange_light !important;
+        }
+        &:focus {
+          outline: $orange_light !important;
+          box-shadow: none !important;
+        }
+      }
+    }
+
+    .already-register {
+      font-size: 1.4rem;
+      color: $darker_grey;
+      margin-top: 2rem;
+      a {
+        font-size: 1.6rem;
+        cursor: pointer;
+        color: #52a7dc;
+        text-transform: uppercase;
+        text-decoration: none !important;
+      }
+    }
+
+    .validation-error {
+      color: red;
+      font-size: 1rem;
+    }
+
+    .api-error {
+      margin-top: 2rem;
+      color: red;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+
