@@ -29,28 +29,71 @@
           class="validation-error"
           *ngIf="frmSignup.controls['Password'].value.length !== 0"
         >
-          {{
-            frmSignup.controls["Password"].hasError("required") ||
-            frmSignup.controls["Password"].hasError("minlength")
-              ? "Must be at least 8 characters!"
-              : frmSignup.controls["Password"].hasError("required") ||
-                frmSignup.controls["Password"].hasError("hasNumber")
-              ? "Must contain at least 1 number!"
-              : frmSignup.controls["Password"].hasError("required") ||
-                frmSignup.controls["Password"].hasError("hasCapitalCase")
-              ? "Must contain at least 1 in Capital Case!"
-              : frmSignup.controls["Password"].hasError("required") ||
-                frmSignup.controls["Password"].hasError("hasSmallCase")
-              ? "Must contain at least 1 Letter in Small Case!"
-              : frmSignup.controls["Password"].hasError("required") ||
-                frmSignup.controls["Password"].hasError("hasSpecialCharacters")
-              ? "Must contain at least 1 Special Character!"
-              : ""
-          }}
+          <label
+            class="col"
+            [ngClass]="
+              frmSignup.controls['Password'].hasError('required') ||
+              frmSignup.controls['Password'].hasError('minlength')
+                ? 'text-danger'
+                : 'text-success'
+            "
+          >
+            <i class="material-icons">{{
+              frmSignup.controls["Password"].hasError("required") ||
+              frmSignup.controls["Password"].hasError("minlength")
+                ? "cancel"
+                : "check_circle"
+            }}</i>
+            Must be at least 8 characters!
+          </label>
+          <label
+            class="col"
+            [ngClass]="
+              frmSignup.controls['Password'].hasError('required') ||
+              frmSignup.controls['Password'].hasError('hasNumber')
+                ? 'text-danger'
+                : 'text-success'
+            "
+          >
+            Must contain at least 1 number!
+          </label>
+          <label
+            class="col"
+            [ngClass]="
+              frmSignup.controls['Password'].hasError('required') ||
+              frmSignup.controls['Password'].hasError('hasCapitalCase')
+                ? 'text-danger'
+                : 'text-success'
+            "
+          >
+            Must contain at least 1 in Capital Case!
+          </label>
+          <label
+            class="col"
+            [ngClass]="
+              frmSignup.controls['Password'].hasError('required') ||
+              frmSignup.controls['Password'].hasError('hasSmallCase')
+                ? 'text-danger'
+                : 'text-success'
+            "
+          >
+            Must contain at least 1 Letter in Small Case!
+          </label>
+          <label
+            class="col"
+            [ngClass]="
+              frmSignup.controls['Password'].hasError('required') ||
+              frmSignup.controls['Password'].hasError('hasSpecialCharacters')
+                ? 'text-danger'
+                : 'text-success'
+            "
+          >
+            Must contain at least 1 Special Character!
+          </label>
         </label>
       </div>
       <div class="form-group">
-        <label for="password" class="input-label">Confirm Password</label>
+        <label for="Password" class="input-label">Confirm Password</label>
         <input
           id="password"
           formControlName="ConfirmPassword"
@@ -69,7 +112,9 @@
       </button>
     </div>
     <div>
-      <label class="already-register">Already Register ? <a href="/log-in">Login</a></label>
+      <label class="already-register"
+        >Already Register ? <a href="/log-in">Login</a></label
+      >
     </div>
   </form>
 </div>

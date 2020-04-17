@@ -1,4 +1,5 @@
 @import "../../../styles.scss";
+@import "~bootstrap/scss/bootstrap";
 
 .login-container {
   background-image: url("../../../assets/background.png");
@@ -102,8 +103,15 @@
     }
 
     .validation-error {
-      color: red;
       font-size: 1rem;
+
+      .text-danger {
+        color: red;
+      }
+
+      .text-success {
+        color: #52a7dc;
+      }
     }
 
     .api-error {
