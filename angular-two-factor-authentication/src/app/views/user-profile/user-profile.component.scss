@@ -1,23 +1,26 @@
+@import "../../../styles.scss";
+
 .user-profile-cont {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
+  background-image: url("../../../assets/background.png");
 
   button {
-    background-color: #52a7dc;
-    border: .1rem solid #52a7dc;
+    background-color: $light_grey;
+    border: .1rem solid $light_grey;
     padding: 1rem;
     color: white;
     text-transform: uppercase;
     border-radius: .5rem;
-    box-shadow: 0 0 5px #52a7dc;
+    box-shadow: 0 0 5px $light_grey;
     font-size: 3rem;
     height: 8rem;
     a {
       width: 100%;
       text-decoration: none !important;
-      color: white;
+      color: $darker_grey;
       height: 8rem;
     }
   }
