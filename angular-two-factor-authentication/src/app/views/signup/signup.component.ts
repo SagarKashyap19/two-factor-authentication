@@ -2,8 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { CustomValidators } from "../sign-in/custom-validators";
 import { AuthService } from "src/app/services/auth.service";
+import * as CryptoJS from 'crypto-js';
+import { Router } from '@angular/router';
 
-var bcrypt = require("bcryptjs");
+// var bcrypt = require("bcryptjs");
 
 @Component({
   selector: "app-signup",
@@ -12,8 +14,11 @@ var bcrypt = require("bcryptjs");
 })
 export class SignupComponent implements OnInit {
   public frmSignup: FormGroup;
+  tokenFromUI: string = "0123456789123456";
+  encrypted: any = "";
+  decrypted: string;
 
-  constructor(private authService: AuthService, private fb: FormBuilder) {}
+  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.frmSignup = this.createSignupForm();
@@ -62,12 +67,26 @@ export class SignupComponent implements OnInit {
     );
   }
 
+  encryptUsingAES256AndSubmit() {
+    // let _key = CryptoJS.enc.Utf8.parse(this.tokenFromUI);
+    // let _iv = CryptoJS.enc.Utf8.parse(this.tokenFromUI);
+    // let encrypted = CryptoJS.AES.encrypt(
+    //   JSON.stringify(this.frmSignup.controls['Password'].value), _key, {
+    //     keySize: 30,
+    //     iv: _iv,
+    //     mode: CryptoJS.mode.ECB,
+    //     padding: CryptoJS.pad.Pkcs7
+    //   });
+    // this.encrypted = encrypted.toString();
+    // console.log(this.encrypted)
+    this.authService.signUp(this.frmSignup.value).subscribe(() => {
+      this.router.navigate(['/log-in'])
+    }, (error) => {
+      console.log("Error")
+    })
+  }
+
   submit() {
-    // this.isOtp = true;
-    console.log(this.frmSignup.controls["Password"].value);
-    var salt = bcrypt.genSaltSync(10);
-    console.log("Salt", salt)
-    var hash = bcrypt.hashSync(this.frmSignup.controls["Password"].value, salt);
-    console.log(hash);
+    this.encryptUsingAES256AndSubmit()
   }
 }

@@ -21,7 +21,27 @@
           class="input-field"
           autocomplete="off"
         />
-        <label
+        <label class="text-danger">
+          {{
+            (frmSignup.controls['Password'].hasError('required') ||
+            frmSignup.controls['Password'].hasError('minlength'))
+            ? "Must be at least 8 characters!"
+            : (frmSignup.controls['Password'].hasError('required') ||
+            frmSignup.controls['Password'].hasError('hasNumber'))
+            ? "Must contain at least 1 number!"
+            : (frmSignup.controls['Password'].hasError('required') ||
+            frmSignup.controls['Password'].hasError('hasCapitalCase'))
+            ? "Must contain at least 1 Letter in Capital Case!"
+            : (frmSignup.controls['Password'].hasError('required') ||
+            frmSignup.controls['Password'].hasError('hasSmallCase'))
+            ? "Must contain at least 1 Letter in Small Case!"
+            : (frmSignup.controls['Password'].hasError('required') ||
+            frmSignup.controls['Password'].hasError('hasSpecialCharacters'))
+            ? " Must contain at least 1 Special Character!"
+            : ""
+          }}
+        </label>
+        <!-- <label
           [ngClass]="
             frmSignup.controls['Password'].hasError('required') ||
             frmSignup.controls['Password'].hasError('minlength')
@@ -70,7 +90,7 @@
           "
         >
           5. Must contain at least 1 Special Character!
-        </label>
+        </label> -->
       </div>
       <div class="form-group">
         <label for="ConfirmPassword" class="input-label"

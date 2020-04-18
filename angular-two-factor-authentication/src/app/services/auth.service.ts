@@ -12,12 +12,12 @@ import { User, UserOtp } from "../Models/User.model";
 export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
-  endpoint = "http://localhost:58014/api/Login/GetUser";
+  endpoint = "http://localhost:58014/api/Login";
 
   signIn(user: User) {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http
-      .post<any>(`${this.endpoint}`, user, {headers: headers})
+      .post<any>(`${this.endpoint}/GetUser`, user, {headers: headers})
       .pipe(
         map(data => data),
         catchError(e => throwError(e))
@@ -27,7 +27,17 @@ export class AuthService {
   verifyOtp(user: UserOtp) {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http
-      .post<any>(`${this.endpoint}`, user, {headers: headers})
+      .post<any>(`${this.endpoint}/GetUser`, user, {headers: headers})
+      .pipe(
+        map(data => data),
+        catchError(e => throwError(e))
+      );
+  }
+
+  signUp(user: User) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http
+      .post<any>(`${this.endpoint}/PostUser`, user, {headers: headers})
       .pipe(
         map(data => data),
         catchError(e => throwError(e))
