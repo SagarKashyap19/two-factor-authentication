@@ -86,7 +86,7 @@ namespace TwoFactorAuthentication.API.Controllers
         }
         private int GenerateOTP()
         {
-            
+            string presharedKey = TimeSensitivePassCode.GeneratePresharedKey();
             IList<string> otps = TimeSensitivePassCode.GetListOfOTPs(presharedKey);
             return Convert.ToInt32(otps[1]);
         }
