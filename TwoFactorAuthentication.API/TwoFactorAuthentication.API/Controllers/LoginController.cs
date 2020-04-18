@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using TwoFactorAuthentication.API.Models;
+using TwoFactorAuthentication.API.Validator;
 
 namespace TwoFactorAuthentication.API.Controllers
 {
@@ -13,15 +15,23 @@ namespace TwoFactorAuthentication.API.Controllers
     public class LoginController : ApiController
     {
         UserContext UserContext;
+        static string emailId = "indiainnowave@gmail.com";
+        static string password = "smtpInw.1@";
+        
         public LoginController()
         {
             UserContext = new UserContext();
         }
 
-        public void Populate(string email, string password)
+        [HttpPost]
+        public IHttpActionResult PostUser(User user)
         {
-            UserContext.users.Add(new User { Email = email, Password = password, OTP = 1234 });
-            UserContext.SaveChanges();
+            bool userAdded = Populate(user.Email, user.Password);
+            if(userAdded)
+            {
+                return Ok();
+            }
+            return BadRequest("User is already Registered");
         }
 
         [HttpPost]
@@ -33,10 +43,10 @@ namespace TwoFactorAuthentication.API.Controllers
                 bool found = FindUser(user.Email, user.Password);
                 if (found)
                 {
-                    int otp = CreateOTP(user);
+                    int otp = StoreOTP(user);
                     if(otp != 0)
                     {
-                        return Ok();
+                        return Ok("preshared Key");
                     }
 
                     else
@@ -45,7 +55,6 @@ namespace TwoFactorAuthentication.API.Controllers
                     }
                 }
             }
-
             else
             {
                 bool found = FindUser(user.Email, user.Password);
@@ -58,31 +67,47 @@ namespace TwoFactorAuthentication.API.Controllers
                     }
                 }
 
-                if (user.Email == "abc@abc.com" && user.Password == "1234567" && user.OTP != 123456)
-                {
-                    return BadRequest();
-                }
             }
             return NotFound();
         }
 
+        public bool Populate(string email, string password)
+        {
+            int otp = GenerateOTP();
+            bool getUser = FindUser(email, password);
+            string presharedKey = TimeSensitivePassCode.GeneratePresharedKey();
+            if (getUser == false)
+            {
+                UserContext.users.Add(new User { Email = email, Password = password, OTP = otp });
+                UserContext.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+        private int GenerateOTP()
+        {
+            
+            IList<string> otps = TimeSensitivePassCode.GetListOfOTPs(presharedKey);
+            return Convert.ToInt32(otps[1]);
+        }
         private bool ValidateOTP(string email, int otp)
         {
             User getuser = UserContext.users.Where(x => x.Email == email).Where(x=> x.OTP == otp).FirstOrDefault();
 
-            if(getuser != null)
+            if (getuser != null)
             {
                 return true;
             }
             return false;
         }
 
-        private int CreateOTP(User user)
+        private int StoreOTP(User user)
         {
             User getuser = UserContext.users.Where(x => x.Email == user.Email).FirstOrDefault();
-            Random rnd = new Random();
-            int otp = rnd.Next(1000, 9999);
+            //Random rnd = new Random();
+            int otp = GenerateOTP();
             //SMTP google mail
+            bool mailSent = SendEmail(user.Email,otp);
             getuser.OTP = otp;
             if (getuser != null)
             {
@@ -90,6 +115,26 @@ namespace TwoFactorAuthentication.API.Controllers
                 UserContext.SaveChanges();
             }
             return otp;
+        }
+
+        private bool SendEmail(string email, int otp)
+        {
+            bool f = false;
+            string subject = "Verification OTP";
+            string body = "your otp from abc.com is : " + otp;
+            try
+            {
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+                smtpClient.EnableSsl = true;
+                smtpClient.Credentials = new NetworkCredential(emailId,password);
+                smtpClient.Send(emailId, email, subject, body);
+                f = true;
+            }
+            catch (Exception ex)
+            {
+                f = false;
+            }
+            return f;
         }
 
         private bool FindUser(string email, string password)
