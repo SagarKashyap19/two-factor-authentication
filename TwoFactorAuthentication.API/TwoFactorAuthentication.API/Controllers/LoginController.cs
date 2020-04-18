@@ -75,10 +75,11 @@ namespace TwoFactorAuthentication.API.Controllers
         {
             int otp = GenerateOTP();
             bool getUser = FindUser(email, password);
-            string presharedKey = TimeSensitivePassCode.GeneratePresharedKey();
+            //string presharedKey = TimeSensitivePassCode.GeneratePresharedKey();
             if (getUser == false)
             {
                 UserContext.users.Add(new User { Email = email, Password = password, OTP = otp });
+                    //,PresharedKey = presharedKey, TwoFactorConfig = false });
                 UserContext.SaveChanges();
                 return true;
             }
