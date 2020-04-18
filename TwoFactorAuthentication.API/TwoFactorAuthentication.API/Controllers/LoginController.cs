@@ -71,23 +71,51 @@ namespace TwoFactorAuthentication.API.Controllers
             return NotFound();
         }
 
+        [HttpPost]
+        public IHttpActionResult Configure(User user)
+        {
+            User getuser =
+              UserContext.users.Where(x => x.Email == user.Email).Where(x => x.Password == user.Password).FirstOrDefault();
+
+            if(getuser != null)
+            {
+                return Ok(getuser.PresharedKey);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public IHttpActionResult ValidateMicrosoftOTP(User user)
+        {
+            User getuser =
+              UserContext.users.Where(x => x.Email == user.Email).Where(x => x.Password == user.Password).FirstOrDefault();
+            if (getuser != null)
+            {
+                int otp = GenerateOTP(getuser.PresharedKey);
+                if(getuser.OTP == otp)
+                {
+                    return Ok("Valid User");
+                }
+                return NotFound();
+            }
+            return NotFound();
+        }
+
         public bool Populate(string email, string password)
         {
-            int otp = GenerateOTP();
             bool getUser = FindUser(email, password);
-            //string presharedKey = TimeSensitivePassCode.GeneratePresharedKey();
+            string presharedKey = TimeSensitivePassCode.GeneratePresharedKey();
+            int otp = GenerateOTP(presharedKey);
             if (getUser == false)
             {
-                UserContext.users.Add(new User { Email = email, Password = password, OTP = otp });
-                    //,PresharedKey = presharedKey, TwoFactorConfig = false });
+                UserContext.users.Add(new User { Email = email, Password = password, OTP = otp, PresharedKey = presharedKey, TwoFactorConfig = false });
                 UserContext.SaveChanges();
                 return true;
             }
             return false;
         }
-        private int GenerateOTP()
+        private int GenerateOTP(string presharedKey)
         {
-            string presharedKey = TimeSensitivePassCode.GeneratePresharedKey();
             IList<string> otps = TimeSensitivePassCode.GetListOfOTPs(presharedKey);
             return Convert.ToInt32(otps[1]);
         }
@@ -106,16 +134,18 @@ namespace TwoFactorAuthentication.API.Controllers
         {
             User getuser = UserContext.users.Where(x => x.Email == user.Email).FirstOrDefault();
             //Random rnd = new Random();
-            int otp = GenerateOTP();
-            //SMTP google mail
-            bool mailSent = SendEmail(user.Email,otp);
-            getuser.OTP = otp;
             if (getuser != null)
             {
+                //generating OTP on the basis preshared key
+                int otp = GenerateOTP(getuser.PresharedKey);
+                getuser.OTP = otp;
+                //SMTP google mail
+                bool mailSent = SendEmail(user.Email, otp);
                 UserContext.Entry(getuser).CurrentValues.SetValues(getuser);
                 UserContext.SaveChanges();
+                return otp;
             }
-            return otp;
+            return 0;
         }
 
         private bool SendEmail(string email, int otp)
