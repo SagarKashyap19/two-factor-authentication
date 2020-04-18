@@ -38,8 +38,8 @@
 
         .input-field {
           height: 5rem;
-          border-radius: .5rem;
-          border: solid .17rem $lighter_grey;
+          border-radius: 0.5rem;
+          border: solid 0.17rem $lighter_grey;
           font-size: 1.8rem;
           padding-left: 0.5rem;
         }
@@ -86,6 +86,25 @@
           box-shadow: none !important;
         }
       }
+    }
+
+    .already-register {
+      font-size: 1.4rem;
+      color: $darker_grey;
+      margin-top: 2rem;
+      a {
+        font-size: 1.6rem;
+        cursor: pointer;
+        color: #52a7dc;
+        text-transform: uppercase;
+        text-decoration: none !important;
+      }
+    }
+
+    .error {
+      margin-top: 2rem;
+      color: red;
+      font-size: 1.2rem;
     }
   }
 }

@@ -9,14 +9,14 @@ import { AuthService } from "src/app/services/auth.service";
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  public frmSignIn: FormGroup;
+  public frmSignup: FormGroup;
   public frmOtp: FormGroup;
   public isOtp: boolean = false;
 
   constructor(private authService: AuthService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.frmSignIn = this.createSignupForm();
+    this.frmSignup = this.createSignupForm();
     this.frmOtp = this.fb.group({
       otp: [''],
     })
@@ -31,6 +31,7 @@ export class SignupComponent implements OnInit {
       Password: [
         null,
         Validators.compose([
+          Validators.nullValidator,
           Validators.required,
           // check whether the entered password has a number
           CustomValidators.patternValidator(/\d/, {
@@ -59,7 +60,7 @@ export class SignupComponent implements OnInit {
 
   submit() {
     // this.isOtp = true;
-    this.authService.signIn(this.frmSignIn.value).subscribe(() => {
+    this.authService.signIn(this.frmSignup.value).subscribe(() => {
       this.isOtp = true
     })
   }

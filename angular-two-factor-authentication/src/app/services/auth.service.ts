@@ -25,10 +25,12 @@ export class AuthService {
   }
 
   verifyOtp(user: UserOtp) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http
-      .post<any>(`${this.endpoint}`, user)
-      .subscribe((res: any) => {
-        this.router.navigate(["user-details"]);
-      });
+      .post<any>(`${this.endpoint}`, user, {headers: headers})
+      .pipe(
+        map(data => data),
+        catchError(e => throwError(e))
+      );
   }
 }

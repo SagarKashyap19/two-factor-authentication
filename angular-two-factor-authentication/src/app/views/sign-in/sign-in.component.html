@@ -1,5 +1,5 @@
 <div class="login-container">
-  <form [formGroup]="frmSignIn" (submit)="submit()" class="login-form" *ngIf="!isOtp">
+  <form [formGroup]="frmSignIn" (submit)="getOtp()" class="login-form" *ngIf="!isOtp">
     <img src="../../../assets/logo.svg" class="logo-login" />
     <div class="form-group-cont">
       <div class="form-group">
@@ -35,9 +35,15 @@
         Get Otp
       </button>
     </div>
+    <div>
+      <label class="already-register">New User ? <a href="/sign-up">Signup</a></label>
+    </div>
+    <div *ngIf="loginError" class="error">
+      Invalid Username/Password
+    </div>
   </form>
 
-  <form [formGroup]="frmOtp" (submit)="submit()" class="login-form" *ngIf="isOtp">
+  <form [formGroup]="frmOtp" (submit)="verifyOtp()" class="login-form" *ngIf="isOtp">
     <img src="../../../assets/logo.svg" class="logo-login" />
     <div class="form-group-cont">
       <div class="form-group">
@@ -48,6 +54,7 @@
           type="text"
           class="input-field"
           autocomplete="off"
+          maxlength="4"
         />
       </div>
     </div>
@@ -59,6 +66,9 @@
       >
         Verify
       </button>
+    </div>
+    <div *ngIf="otpError" class="error">
+      Invalid OTP
     </div>
   </form>
 </div>
