@@ -46,7 +46,7 @@ namespace TwoFactorAuthentication.API.Controllers
                     int otp = StoreOTP(user);
                     if(otp != 0)
                     {
-                        return Ok("preshared Key");
+                        return Ok();
                     }
 
                     else
@@ -79,6 +79,9 @@ namespace TwoFactorAuthentication.API.Controllers
 
             if(getuser != null)
             {
+                getuser.TwoFactorConfig = true;
+                UserContext.Entry(getuser).CurrentValues.SetValues(getuser);
+                UserContext.SaveChanges();
                 return Ok(getuser.PresharedKey);
             }
             return NotFound();
@@ -89,10 +92,10 @@ namespace TwoFactorAuthentication.API.Controllers
         {
             User getuser =
               UserContext.users.Where(x => x.Email == user.Email).Where(x => x.Password == user.Password).FirstOrDefault();
-            if (getuser != null)
+            if (getuser != null && getuser.TwoFactorConfig == true)
             {
-                int otp = GenerateOTP(getuser.PresharedKey);
-                if(getuser.OTP == otp)
+                IList<string> otps = TimeSensitivePassCode.GetListOfOTPs(getuser.PresharedKey);
+                if(user.OTP == Convert.ToInt32(otps[0]) || user.OTP == Convert.ToInt32(otps[1]))
                 {
                     return Ok("Valid User");
                 }
