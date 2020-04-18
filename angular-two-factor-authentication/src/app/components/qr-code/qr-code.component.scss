@@ -1,0 +1,57 @@
+@import "../../../styles.scss";
+
+.qrCode-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+  padding: 10rem 25rem;
+  background-color: $background_color;
+  .title {
+    font-size: 2rem;
+    color: $darker_grey;
+  }
+
+  .subtitle {
+    color: $darker_grey;
+    font-size: 1.4rem;
+  }
+
+  .contents {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    color: $darker_grey;
+  }
+
+  .input-container {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .input-field {
+      height: 3rem;
+      width: 25rem;
+      border-radius: 0.5rem;
+      box-shadow: none;
+      border: 0.1rem solid $light_grey;
+    }
+  }
+
+  .btn-contianer {
+    margin-top: 1rem;
+
+    button {
+        height: 3rem;
+        width: 25rem;
+        border-radius: 0.5rem;
+        box-shadow: none;
+        border: .1rem solid $light_grey;
+    }
+  }
+}

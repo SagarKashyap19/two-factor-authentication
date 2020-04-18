@@ -1,0 +1,29 @@
+<div class="qrCode-cont">
+  <span class="title">Configure Authenticator App</span>
+  <span class="subtitle">To use authenticator app go through the following steps</span>
+  <p class="contents">
+    1. Download a two-factor authenticator app like Microsoft authenticator app
+    for Android or Ios or Google Authenticator app for Android or Ios
+  </p>
+  <p class="contents">
+    2. Scan the QR Code or enter this key {{ myAngularxQrCode }} into your
+    two-factor authenticator app. Spaces and casing do not matter.
+  </p>
+  <qrcode
+    [qrdata]="myAngularxQrCode"
+    [width]="256"
+    [errorCorrectionLevel]="'M'"
+  ></qrcode>
+  <p class="contents">
+    3. Once you scanned the QR Code or input the key above, your two-factor
+    authenticator app will provide you with a unique code. Enter the code in
+    confirmation link below.
+  </p>
+  <div class="input-container">
+    <label for="">Verification Code</label>
+    <input type="text" class="input-field"/>
+  </div>
+  <div class="btn-contianer">
+    <button>Verify</button>
+  </div>
+</div>
