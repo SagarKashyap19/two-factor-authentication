@@ -14,5 +14,7 @@ namespace TwoFactorAuthentication.API.Models
         public string Email { get; set; } 
         public string Password { get; set; }
         public int OTP { get; set; }
+        public string PresharedKey { get; set; }
+        public bool TwoFactorConfig { get; set; }
     }
 }
