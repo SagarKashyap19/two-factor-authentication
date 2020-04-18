@@ -47,6 +47,8 @@ export class SignInComponent implements OnInit {
       this.isOtp = true
       this.otpError = false
       this.router.navigate(['/user-profile'])
+      localStorage.setItem("Email",this.frmSignIn.controls['Email'].value)
+      localStorage.setItem("Password",this.frmSignIn.controls['Password'].value)
     }, (error) => {
       this.otpError = true
     })

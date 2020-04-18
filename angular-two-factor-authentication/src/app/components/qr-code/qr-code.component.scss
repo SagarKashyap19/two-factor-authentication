@@ -6,17 +6,20 @@
   align-items: flex-start;
   justify-content: center;
   height: 100%;
-  padding: 10rem 25rem;
   background-image: url("../../../assets/background.png");
-  
+  align-items: center;
+
   .title {
     font-size: 2rem;
     color: $darker_grey;
+    text-transform: uppercase;
+    font-weight: bold;
   }
 
   .subtitle {
     color: $darker_grey;
     font-size: 1.4rem;
+    border-bottom: .1rem solid;
   }
 
   .contents {
@@ -28,7 +31,7 @@
   .input-container {
     display: flex;
     flex-direction: column;
-
+    align-items: center;
     label {
       font-size: 1.2rem;
       font-weight: bold;
@@ -41,6 +44,8 @@
       border-radius: 0.5rem;
       box-shadow: none;
       border: 0.1rem solid $light_grey;
+      padding: 1rem;
+      font-size: 1.2rem;
     }
   }
 
@@ -48,11 +53,16 @@
     margin-top: 1rem;
 
     button {
-        height: 3rem;
-        width: 25rem;
-        border-radius: 0.5rem;
-        box-shadow: none;
-        border: .1rem solid $light_grey;
+      height: 3rem;
+      width: 25rem;
+      border-radius: 0.5rem;
+      box-shadow: none;
+      border: 0.1rem solid $light_grey;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: white;
+      background-color: $darker_grey;
+      text-transform: uppercase;
     }
   }
 }

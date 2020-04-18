@@ -34,10 +34,30 @@ export class AuthService {
       );
   }
 
+  configure(user: any) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http
+      .post<any>(`${this.endpoint}/Configure`, user, {headers: headers})
+      .pipe(
+        map(data => data),
+        catchError(e => throwError(e))
+      );
+  }
+
   signUp(user: User) {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http
       .post<any>(`${this.endpoint}/PostUser`, user, {headers: headers})
+      .pipe(
+        map(data => data),
+        catchError(e => throwError(e))
+      );
+  }
+
+  verifyMicrosoftOtp(user: any) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http
+      .post<any>(`${this.endpoint}/ValidateMicrosoftOTP`, user, {headers: headers})
       .pipe(
         map(data => data),
         catchError(e => throwError(e))

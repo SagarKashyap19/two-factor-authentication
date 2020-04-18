@@ -21,9 +21,9 @@
   </p>
   <div class="input-container">
     <label for="">Verification Code</label>
-    <input type="text" class="input-field"/>
+    <input type="text" class="input-field" (change)="handleOtp($event)"/>
   </div>
   <div class="btn-contianer">
-    <button>Verify</button>
+    <button (click)="validateMicrosoftOtp()">Verify</button>
   </div>
 </div>
