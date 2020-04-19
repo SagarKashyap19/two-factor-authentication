@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { CustomValidators } from "./custom-validators";
 import { AuthService } from "src/app/services/auth.service";
 import { Router } from '@angular/router';
+import * as shajs from 'sha.js';
 
 @Component({
   selector: "app-sign-in",
@@ -29,7 +29,12 @@ export class SignInComponent implements OnInit {
   }
 
   getOtp() {
-    this.authService.signIn(this.frmSignIn.value).subscribe(() => {
+    let encrypt = shajs('sha256').update(this.frmSignIn.controls['Password'].value).digest('hex')
+    let payload = {
+      Email: this.frmSignIn.controls['Email'].value,
+      Password: encrypt
+    }
+    this.authService.signIn(payload).subscribe(() => {
       this.isOtp = true
       this.loginError = false
     }, (error) => {
@@ -38,9 +43,10 @@ export class SignInComponent implements OnInit {
   }
 
   verifyOtp() {
+    let encrypt = shajs('sha256').update(this.frmSignIn.controls['Password'].value).digest('hex')
     let payload = {
       "Email" : this.frmSignIn.controls['Email'].value,
-      "Password" : this.frmSignIn.controls['Password'].value,
+      "Password" : encrypt,
       "OTP": this.frmOtp.controls['otp'].value
     }
     this.authService.verifyOtp(payload).subscribe(() => {
@@ -48,7 +54,7 @@ export class SignInComponent implements OnInit {
       this.otpError = false
       this.router.navigate(['/user-profile'])
       localStorage.setItem("Email",this.frmSignIn.controls['Email'].value)
-      localStorage.setItem("Password",this.frmSignIn.controls['Password'].value)
+      localStorage.setItem("Password",encrypt)
     }, (error) => {
       this.otpError = true
     })

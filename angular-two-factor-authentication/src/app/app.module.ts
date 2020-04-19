@@ -10,6 +10,7 @@ import { SignInComponent } from './views/sign-in/sign-in.component';
 import { UserProfileComponent } from './views/user-profile/user-profile.component';
 import { SignupComponent } from './views/signup/signup.component';
 import { QrCodeComponent } from './components/qr-code/qr-code.component';
+import { HomeComponent } from './views/home/home.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { QrCodeComponent } from './components/qr-code/qr-code.component';
     UserProfileComponent,
     SignupComponent,
     QrCodeComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

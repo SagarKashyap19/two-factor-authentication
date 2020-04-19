@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { CustomValidators } from "../sign-in/custom-validators";
 import { AuthService } from "src/app/services/auth.service";
 import * as CryptoJS from 'crypto-js';
+import * as shajs from 'sha.js';
 import { Router } from '@angular/router';
 
 // var bcrypt = require("bcryptjs");
@@ -79,7 +80,12 @@ export class SignupComponent implements OnInit {
     //   });
     // this.encrypted = encrypted.toString();
     // console.log(this.encrypted)
-    this.authService.signUp(this.frmSignup.value).subscribe(() => {
+    let encrypt = shajs('sha256').update(this.frmSignup.controls['Password'].value).digest('hex')
+    let payload = {
+      Email: this.frmSignup.controls['Email'].value,
+      Password: encrypt
+    }
+    this.authService.signUp(payload).subscribe(() => {
       this.router.navigate(['/log-in'])
     }, (error) => {
       console.log("Error")
