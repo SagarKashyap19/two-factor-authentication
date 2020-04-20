@@ -4,8 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using TwoFactorAuthentication.API.Helper;
 using TwoFactorAuthentication.API.Models;
 using TwoFactorAuthentication.API.Validator;
 
@@ -23,6 +25,7 @@ namespace TwoFactorAuthentication.API.Controllers
             UserContext = new UserContext();
         }
 
+        [UseSSL]
         [HttpPost]
         public IHttpActionResult PostUser(User user)
         {
@@ -34,6 +37,7 @@ namespace TwoFactorAuthentication.API.Controllers
             return BadRequest("User is already Registered");
         }
 
+        [UseSSL]
         [HttpPost]
         public IHttpActionResult GetUser(User user)
         {
@@ -71,6 +75,7 @@ namespace TwoFactorAuthentication.API.Controllers
             return NotFound();
         }
 
+        [UseSSL]
         [HttpPost]
         public IHttpActionResult Configure(User user)
         {
@@ -87,6 +92,7 @@ namespace TwoFactorAuthentication.API.Controllers
             return NotFound();
         }
 
+        [UseSSL]
         [HttpPost]
         public IHttpActionResult ValidateMicrosoftOTP(User user)
         {
